@@ -58,9 +58,17 @@ export class DataStoreService {
 
     getDailyDateTemp(forecast: WeatherBit.Daily.Forecast){
         var c = forecast.daily.time.map(function(e, i) {
-            return [e, forecast.daily.temperature_2m_max[i]];
+            return [e, forecast.daily.temperature_2m_max[i], forecast.daily.weathercode[i]];
           });
           return c;
+    }
+
+
+    getCurrentDailyDateTemp(forecast: WeatherBit.Daily.Forecast){
+        var c = forecast.daily.time.map(function(e, i) {
+            return [e, forecast.daily.temperature_2m_max[i], forecast.daily.weathercode[i]];
+          });
+          return c[0];
     }
 
     setUserLocation(data: PositionStack.Location) {

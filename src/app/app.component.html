@@ -526,8 +526,8 @@
       <div class="current-forecast-title">
           <h2>Right Now</h2>
       </div>            
-      <app-current-forecast *ngIf="dataStore.getCurrentForecast()"
-          [forecast]="dataStore.getCurrentForecast()"
+      <app-current-forecast *ngIf="dataStore.getCurrentDailyForecast()"
+          [forecast]="dataStore.getCurrentDailyDateTemp(dataStore.getCurrentDailyForecast())"
       ></app-current-forecast>
   </section>
 

@@ -66,7 +66,8 @@ export namespace WeatherBit {
       
       export interface DailyWeather {
         time: number[]
-        temperature_2m_max: number[]
+        temperature_2m_max: number[],
+        weathercode: number[]
       }
 
     export function getForcastImgSrc(icon: string) {

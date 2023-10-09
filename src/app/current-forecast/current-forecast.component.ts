@@ -17,15 +17,14 @@ import { Utils } from '../utils'
 export class CurrentForecastComponent implements OnInit {
 
     @Input()
-    forecast!: WeatherBit.Current.Forecast;
+    forecast!: number[];
 
     localDate!: string;
     
     constructor() { }
 
     ngOnInit(): void {
-        console.log(this.forecast.daily.time);
-        console.log(this.forecast.daily.temperature_2m_max);
+        console.log(this.forecast);
         this.localDate = this.getLocalDateString();
     }
 
@@ -43,7 +42,7 @@ export class CurrentForecastComponent implements OnInit {
 
     getLocalDateString() {
         let date = this.toLocalDatetime(new Date());
-        return `${Utils.getWeekdayName(date)} ${Utils.getDateTimeString(date)}`;
+        return '';//`${Utils.getWeekdayName(date)} ${Utils.getDateTimeString(date)}`;
     }
 
     getLocalSunrise() {
@@ -71,7 +70,7 @@ export class CurrentForecastComponent implements OnInit {
     }
 
     toLocalDatetime(date: Date) {
-        return Utils.convertTimezone(date, this.forecast.timezone);
+        return '';//Utils.convertTimezone(date, this.forecast.timezone);
     }
 
     getAirQualityDescription() {

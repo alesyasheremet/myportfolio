@@ -52,7 +52,12 @@
     </section>
     <section>
         <div>
-            <!--<img class="weather-icon" [src]="getForcastImgSrc()" alt="Forcast" />-->
+            <img class="weather-icon" [src]="forecastDescrCode.image" alt="Forcast" />
+            <div>
+                <div class="forecast-description">
+                    {{ forecastDescrCode.description }}
+                </div>
+            </div>
             <div class="high-temp">
                 {{ forecastTemp }}
             </div>

@@ -35,12 +35,12 @@ export class WeatherBitApiService extends ApiService {
     override key = 'de63ee9cbd104ced836c780bfb2676c0';
     //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41
     getCurrentForecast(latitude: number, longitude: number, timezone: string) {
-        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max&timeformat=unixtime&format=json&timezone=${timezone}`; 
+        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,weathercode&timeformat=unixtime&format=json&timezone=${timezone}`; 
         // console.log(url);
         return this.http.get<WeatherBit.Current.Result>(url);           
     }  
     getDailyForecast(latitude: number, longitude: number, timezone: string) {
-        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max&timeformat=unixtime&format=json&timezone=${timezone}`;
+        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,weathercode&timeformat=unixtime&format=json&timezone=${timezone}`;
         // console.log(url);
         return this.http.get<WeatherBit.Daily.Result>(url);           
     } 

@@ -1,0 +1,27 @@
+/*
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Dec 22, 2021
+//    Taken From: http://programmingnotes.org/
+//    File:  forecast-location.component.css
+//    Description: Forecast location css
+// ============================================================================
+*/
+.location {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+.city {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+.region {
+    font-style: italic;
+}
+
+@media screen and (max-width: 767px) {
+    .location {
+        text-align: center;
+    }
+}

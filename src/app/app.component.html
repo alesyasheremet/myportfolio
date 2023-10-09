@@ -350,6 +350,38 @@
 
   </div>
 
+
+  <!-- Resources -->
+  <h2>CV</h2>
+  <p>Here are my resumes in Dutch and English:</p>
+
+  <div class="card-container">
+    <a class="card" target="_blank" rel="noopener" href="assets/A_Sheremet_NL.docx">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+      <span>A. Sheremet CV Ducth</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
+
+    <a class="card" target="_blank" rel="noopener" href="assets/A_Sheremet_EN.docx">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+      <span>A. Sheremet CV English</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+  </div>
+
+    <!-- Weather Forecast -->
+    <h2>Weather Forecast</h2>
+    <p>Here is the weatherforecast for your location:</p>
+  
+    <div class="card-container">
+      
+      <ng-container
+      *ngTemplateOutlet="isLoading ? loading: notLoading">
+  </ng-container>
+  
+  
+    </div>
+  
+
   <!-- Resources -->
   <h2>Resources</h2>
   <p>Here are some links to help you get started:</p>
@@ -385,6 +417,8 @@
     </a>
 
   </div>
+
+  
 
   <!-- Next Steps -->
   <h2>Next Steps</h2>
@@ -472,6 +506,48 @@
   </svg>
 
 </div>
+
+
+<ng-template #loading> 
+  <section class="spinner-container">
+      <div class="spinner-container-border">
+          <mat-spinner></mat-spinner>
+      </div>
+  </section>
+</ng-template>  
+
+<ng-template #notLoading>
+  <section class="forecast-container">
+      <app-forecast-location *ngIf="dataStore.getCurrentForecastLocation()"
+          [location]="dataStore.getCurrentForecastLocation()"
+      >
+      </app-forecast-location>
+      <!--
+      <div class="current-forecast-title">
+          <h2>Right Now</h2>
+      </div>            
+      <app-current-forecast *ngIf="dataStore.getCurrentForecast()"
+          [forecast]="dataStore.getCurrentForecast()"
+      ></app-current-forecast>-->
+  </section>
+<!--
+  <section class="forecast-container">
+      <div class="daily-forecast-title">
+          <h2> <span *ngIf="dataStore.getCurrentDailyForecast()">{{ dataStore.getCurrentDailyForecast().length }}</span> Day Forecast</h2>
+      </div>
+      <app-carousel [data]="dataStore.getCurrentDailyForecast()">
+          <ng-template let-item>
+              <app-daily-forecast 
+                  [forecast]="item"
+                  [timezone]="dataStore.getCurrentForecast().timezone"
+              >
+              </app-daily-forecast>
+          </ng-template>
+      </app-carousel>
+  </section>        -->
+</ng-template>  
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

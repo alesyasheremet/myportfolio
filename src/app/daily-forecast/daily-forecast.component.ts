@@ -17,26 +17,29 @@ import { Utils } from '../utils';
 export class DailyForecastComponent implements OnInit {
 
     @Input()
-    forecast!: WeatherBit.Daily.Forecast;
+    forecast!: [number, number];
 
     @Input()
     timezone!: string;
     
     forecastDateString!: string;
+    forecastTemp!: number;
     constructor() { }
 
     ngOnInit(): void {
         this.forecastDateString = this.getForcastDateString();
+        this.forecastTemp = this.getForecastTemp();
     }
 
     getForcastDateString() {
-        let localDate = this.toLocalDatetime(new Date());
-
-        let parts = this.forecast.valid_date.split('-');
+        let localDate = this.toLocalDatetime(new Date(this.forecast[0] * 1000));
+        console.log(new Date(this.forecast[0] * 1000));
+        //let parts = this.forecast.valid_date.split('-');
         // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
         // January - 0, February - 1, etc.
-        let date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));         
+        //let date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));         
 
+        /*
         if (date.getMonth() == localDate.getMonth() 
             && date.getDate() == localDate.getDate() 
             && date.getFullYear() == localDate.getFullYear()) {
@@ -48,20 +51,31 @@ export class DailyForecastComponent implements OnInit {
             day  : '2-digit',
             weekday: 'short',
             timeZone: 'UTC',
-        });       
+        });   */  
+        return localDate.toLocaleString('default', {
+            month: 'short',
+            day  : '2-digit',
+            weekday: 'short',
+            timeZone: 'UTC',
+        });  
+    }
+
+
+    getForecastTemp() {
+        return this.forecast[1];
     }
 
     getForcastImgSrc() {
-        return WeatherBit.getForcastImgSrc(this.forecast.weather.icon);
+        return null; //WeatherBit.getForcastImgSrc(this.forecast.weather.icon);
     }
     
     getUVIndexDescription() {
-        return WeatherBit.getUVIndexDescription(this.forecast.uv);
+        return null; //WeatherBit.getUVIndexDescription(this.forecast.uv);
     }
 
     getUVIndexCss() {
         let desc = this.getUVIndexDescription();
-        let className = desc.replace(' ', '-').toLowerCase();
+        let className = null;// desc.replace(' ', '-').toLowerCase();
         return `uv-index ${className}`;
     }    
     

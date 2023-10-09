@@ -6,7 +6,7 @@
 //    File:  daily-forecast.component.html
 //    Description: Daily forecast html
 // ============================================================================
--->
+
 <div class="daily-forecast-container">
     <section class="forecast-date">
         {{ forecastDateString }}
@@ -45,3 +45,17 @@
         </div>                  
     </section>           
 </div>
+-->
+<div class="daily-forecast-container">
+    <section class="forecast-date">
+        {{ forecastDateString }}
+    </section>
+    <section>
+        <div>
+            <!--<img class="weather-icon" [src]="getForcastImgSrc()" alt="Forcast" />-->
+            <div class="high-temp">
+                {{ forecastTemp }}
+            </div>
+        </div>
+        </section>
+        </div>

@@ -12,8 +12,8 @@ import { WeatherBit } from '../models/weatherbit';
 
 interface ForecastData {
     currentForecastLocation: PositionStack.Location | any;
-    //currentForecast: WeatherBit.Current.Forecast | any;
-    //currentDailyForecast: WeatherBit.Daily.Result[];
+    currentForecast: WeatherBit.Current.Result | any;
+    currentDailyForecast: WeatherBit.Daily.Forecast | any;
 }
 
 @Injectable({
@@ -33,8 +33,8 @@ export class DataStoreService {
 
     private forecastData: ForecastData = {
         currentForecastLocation: undefined,
-        //currentForecast: undefined,
-        //currentDailyForecast: []
+        currentForecast: undefined,
+        currentDailyForecast: undefined
     };
         
     constructor() { }
@@ -46,15 +46,23 @@ export class DataStoreService {
     getCurrentForecastLocation(): PositionStack.Location {
         return this.forecastData.currentForecastLocation;
     }
-/*
+
     getCurrentForecast(): WeatherBit.Current.Forecast {
-        return null; //this.forecastData.currentForecast;
+        return this.forecastData.currentForecast;
     }    
 
-    getCurrentDailyForecast(): WeatherBit.Daily.Forecast[] {
-        return this.forecastData.currentDailyForecast;
+    getCurrentDailyForecast(): WeatherBit.Daily.Forecast {
+
+        return this.forecastData.currentForecast;
     }       
-*/
+
+    getDailyDateTemp(forecast: WeatherBit.Daily.Forecast){
+        var c = forecast.daily.time.map(function(e, i) {
+            return [e, forecast.daily.temperature_2m_max[i]];
+          });
+          return c;
+    }
+
     setUserLocation(data: PositionStack.Location) {
         this.userLocation = data;
     }

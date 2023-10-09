@@ -31,33 +31,33 @@ export class ApiService {
     providedIn: 'root'
 })
 export class WeatherBitApiService extends ApiService {
-    override baseUrl = 'https://api.openweathermap.org/data/2.5';
-    override key = '5dbb60bf5aaa4b3506820753fb5246aa';
-
-    getCurrentForecast(latitude: number, longitude: number) {
-        let url = `${this.baseUrl}/weather?appid=${this.key}&lat=${latitude}&lon=${longitude}&units=standard`; 
+    override baseUrl = 'https://api.open-meteo.com/v1/forecast';
+    override key = 'de63ee9cbd104ced836c780bfb2676c0';
+    //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41
+    getCurrentForecast(latitude: number, longitude: number, timezone: string) {
+        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max&timeformat=unixtime&format=json&timezone=${timezone}`; 
         // console.log(url);
         return this.http.get<WeatherBit.Current.Result>(url);           
     }  
-    getDailyForecast(latitude: number, longitude: number) {
-        let url = `${this.baseUrl}/forecast/daily?appid=${this.key}&lat=${latitude}&lon=${longitude}&units=standard`;         
+    getDailyForecast(latitude: number, longitude: number, timezone: string) {
+        let url = `${this.baseUrl}?forecast_days=7&latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max&timeformat=unixtime&format=json&timezone=${timezone}`;
         // console.log(url);
         return this.http.get<WeatherBit.Daily.Result>(url);           
     } 
-    async getForecast(latitude: number, longitude: number) {
+    async getForecast(latitude: number, longitude: number, timezone: string) {
         // Get current forecast
-        let current = await firstValueFrom(this.getCurrentForecast(latitude, longitude));
+        let current = await firstValueFrom(this.getCurrentForecast(latitude, longitude, timezone));
         // console.log(current);
         if (current == null) {
             throw new RuntimeError.ForecastError(`No current forecast results returned for latitude: ${latitude}, longitude: ${longitude}`);
         }
 
         // Get daily forecast
-       // let daily = await firstValueFrom(this.getDailyForecast(latitude, longitude));
+        let daily = await firstValueFrom(this.getDailyForecast(latitude, longitude, timezone));
 
         return {
             current: current,
-            daily: null,//daily.data
+            daily: daily.data
         };
     }              
 }
@@ -66,7 +66,7 @@ export class WeatherBitApiService extends ApiService {
     providedIn: 'root'
 })
 export class PositionStackApiService extends ApiService {
-    override baseUrl = 'http://api.positionstack.com/v1';
+    override baseUrl = 'https://ipapi.co/json';
     override key = '60b7db72c3b0554f537a3e454c79411f';
 
     getForwardSearch(search: string) {
@@ -85,7 +85,7 @@ export class PositionStackApiService extends ApiService {
         } else {
             search = `${param1},${param2}`;
         }
-        let url = `${this.baseUrl}/reverse?access_key=${this.key}&query=${search}&limit=1`; 
+        let url = `${this.baseUrl}`; 
         // console.log(url);
         return this.http.get<PositionStack.Result>(url);           
     }  

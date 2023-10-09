@@ -368,7 +368,7 @@
     </a>
   </div>
 
-    <!-- Weather Forecast 
+    <!-- Weather Forecast -->
     <h2>Weather Forecast</h2>
     <p>Here is the weatherforecast for your location:</p>
   
@@ -381,7 +381,7 @@
   
     </div>
   
--->
+
   <!-- Resources 
   <h2>Resources</h2>
   <p>Here are some links to help you get started:</p>
@@ -522,20 +522,20 @@
           [location]="dataStore.getCurrentForecastLocation()"
       >
       </app-forecast-location>
-      <!--
+      
       <div class="current-forecast-title">
           <h2>Right Now</h2>
       </div>            
       <app-current-forecast *ngIf="dataStore.getCurrentForecast()"
           [forecast]="dataStore.getCurrentForecast()"
-      ></app-current-forecast>-->
+      ></app-current-forecast>
   </section>
-<!--
+
   <section class="forecast-container">
       <div class="daily-forecast-title">
-          <h2> <span *ngIf="dataStore.getCurrentDailyForecast()">{{ dataStore.getCurrentDailyForecast().length }}</span> Day Forecast</h2>
+          <h2> <span *ngIf="dataStore.getCurrentDailyForecast()">{{ dataStore.getCurrentDailyForecast().daily.time.length }}</span> Day Forecast</h2>
       </div>
-      <app-carousel [data]="dataStore.getCurrentDailyForecast()">
+      <app-carousel [data]="dataStore.getDailyDateTemp(dataStore.getCurrentDailyForecast())">
           <ng-template let-item>
               <app-daily-forecast 
                   [forecast]="item"
@@ -544,7 +544,7 @@
               </app-daily-forecast>
           </ng-template>
       </app-carousel>
-  </section>        -->
+  </section>        
 </ng-template>  
 
 

@@ -24,6 +24,7 @@ export class ForecastLocationComponent implements OnInit {
     }
 
     getCity() {
-        return this.location.locality ? this.location.locality: this.location.county;
+        console.log(this.location);
+        return this.location.country ? this.location.country: this.location.country_name;
     }
 }

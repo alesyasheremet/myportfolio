@@ -28,8 +28,11 @@ export class AppComponent {
         this.baseUrl = location.href;
     }
 
+
     ngOnInit() {
-        if (!this.debug && this.hasAPIKeys()) {
+      
+      
+        if (this.hasAPIKeys()) {
             this.isLoading = true;
             this.loadInitialForecast().then(() => {
                 console.log('Initial forecast load complete');
@@ -92,7 +95,7 @@ export class AppComponent {
 
         let forecast: any
         try {
-            forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude);
+            forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude, searchLocation.timezone);
         } catch (error: any) {
             let message = error.message ? error.message : error;
             throw new RuntimeError.ForecastError(message);
@@ -101,8 +104,8 @@ export class AppComponent {
         this.dataStore.setUserLocation(searchLocation);
 
         this.dataStore.setCurrentForecast({
-            //currentForecast: forecast.current,
-            //currentDailyForecast: forecast.daily,
+            currentForecast: forecast.current,
+            currentDailyForecast: forecast.daily,
             currentForecastLocation: searchLocation,
         });
 
@@ -129,11 +132,11 @@ export class AppComponent {
             }
         }
         
-        let forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude);
+        let forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude, searchLocation.timezone);
 
         this.dataStore.setCurrentForecast({
-           // currentForecast: forecast.current,
-            //currentDailyForecast: forecast.daily,
+            currentForecast: forecast.current,
+            currentDailyForecast: forecast.daily,
             currentForecastLocation: searchLocation,
         });
 
@@ -156,16 +159,19 @@ export class AppComponent {
             let locationResults = await this.positionStackApi.getForecastLocation(ForecastLocationSearch.Type.GPS, {
                 latitude, longitude
             });
+            console.log(locationResults);
             searchLocation = locationResults.data[0];
         }
 
-        let forecast = await this.weatherBitApi.getForecast(latitude, longitude);
+
+        
+        let forecast = await this.weatherBitApi.getForecast(latitude, longitude, 'Europe/Amsterdam');
 
         this.dataStore.setUserLocation(searchLocation);
         
         this.dataStore.setCurrentForecast({
-           // currentForecast: forecast.current,
-            //currentDailyForecast: forecast.daily,
+            currentForecast: forecast.current,
+            currentDailyForecast: forecast.daily,
             currentForecastLocation: searchLocation,
         });
  
@@ -206,7 +212,7 @@ export class AppComponent {
     } 
 
     hasAPIKeys() {
-        return this.positionStackApi.hasKey() && this.weatherBitApi.hasKey();
+        return true; //this.positionStackApi.hasKey() && this.weatherBitApi.hasKey();
     }
 
     maybeShowAPINotice() {

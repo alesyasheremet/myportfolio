@@ -38,7 +38,7 @@ export class DailyForecastComponent implements OnInit {
 
     getForcastDateString() {
         let localDate = this.toLocalDatetime(new Date(this.forecast[0] * 1000));
-        console.log(new Date(this.forecast[0] * 1000));
+        
         //let parts = this.forecast.valid_date.split('-');
         // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
         // January - 0, February - 1, etc.

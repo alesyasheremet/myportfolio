@@ -60,6 +60,7 @@ export class DataStoreService {
         var c = forecast.daily.time.map(function(e, i) {
             return [e, forecast.daily.temperature_2m_max[i], forecast.daily.weathercode[i]];
           });
+          c.splice(0, 1);
           return c;
     }
 
@@ -68,7 +69,7 @@ export class DataStoreService {
         var c = forecast.daily.time.map(function(e, i) {
             return [e, forecast.daily.temperature_2m_max[i], forecast.daily.weathercode[i]];
           });
-          return c[0];
+          return c[1];
     }
 
     setUserLocation(data: PositionStack.Location) {

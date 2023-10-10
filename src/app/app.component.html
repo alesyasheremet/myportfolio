@@ -533,7 +533,7 @@
 
   <section class="forecast-container">
       <div class="daily-forecast-title">
-          <h2> <span *ngIf="dataStore.getCurrentDailyForecast()">{{ dataStore.getCurrentDailyForecast().daily.time.length }}</span> Day Forecast</h2>
+          <h2> <span *ngIf="dataStore.getCurrentDailyForecast()">{{ dataStore.getCurrentDailyForecast().daily.time.length - 1}}</span> Day Forecast</h2>
       </div>
       <app-carousel [data]="dataStore.getDailyDateTemp(dataStore.getCurrentDailyForecast())">
           <ng-template let-item>

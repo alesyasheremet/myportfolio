@@ -76,11 +76,11 @@ export class AppComponent {
     }
 
     async ipAddressSearch() {
-        let searchLocation = this.dataStore.getUserLocation();
+        //let searchLocation = this.dataStore.getUserLocation();
         
-        let ipData = await this.getIPAddress();
-        let ipAddress = ipData.ip;
-
+        //let ipData = await this.getIPAddress();
+        //let ipAddress = ipData.ip;
+/*
         if (searchLocation == null || !this.dataStore.lastSearchMatches(ForecastLocationSearch.Type.IP, {ipAddress})) {
             try {
                 let locationResults = await this.positionStackApi.getForecastLocation(ForecastLocationSearch.Type.IP, {
@@ -91,29 +91,31 @@ export class AppComponent {
                 let message = error.message ? error.message : error;
                 throw new RuntimeError.ForecastLocationError(message, ForecastLocationSearch.Type.IP);
             }
-        }
+        }*/
 
         let forecast: any
         try {
-            forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude, searchLocation.timezone);
+            //forecast = await this.weatherBitApi.getForecast(searchLocation.latitude, searchLocation.longitude, searchLocation.timezone);
+            forecast = await this.weatherBitApi.getForecast(52.114, 5.1128, 'Europe/Amsterdam');
         } catch (error: any) {
             let message = error.message ? error.message : error;
             throw new RuntimeError.ForecastError(message);
         }
 
-        this.dataStore.setUserLocation(searchLocation);
+        //this.dataStore.setUserLocation(searchLocation);
 
         this.dataStore.setCurrentForecast({
             currentForecast: forecast.current,
             currentDailyForecast: forecast.daily,
-            currentForecastLocation: searchLocation,
+            currentForecastLocation: null,//searchLocation,
         });
 
+   /*
         this.dataStore.updateLastSearchData({
             longitude: searchLocation.longitude,
             latitude: searchLocation.latitude,            
             ipAddress,
-        });         
+        });         */
     }    
       
     async querySearch(searchQuery: string) {
